@@ -1,0 +1,57 @@
+{{ services.lastSeen.setLastSeenMaxCount(config("Ceres.item.lists.last_seen_number")) }}
+
+{{ component( "Zisternenfilter::Item.Components.VariationSelect" ) }}
+{{ component( "Zisternenfilter::Item.Components.ItemImageCarousel" ) }}
+{{ component( "Zisternenfilter::Item.Components.AddToWishList" ) }}
+{{ component( "Ceres::Item.Components.OrderProperties" ) }}
+{{ component( "Ceres::Item.Components.OrderPropertyList" ) }}
+{{ component( "Zisternenfilter::Item.Components.SingleItem" ) }}
+{{ component( "Ceres::Item.Components.GraduatedPrices" ) }}
+{{ component( "Zisternenfilter::Basket.Components.AddToBasket" ) }}
+{{ component( "Ceres::Item.Components.ItemBundle" ) }}
+{{ component("Zisternenfilter::Containers.Components.ContainerItemList") }}
+{{ component( "Zisternenfilter::ItemList.Components.CategoryItem" ) }}
+
+<single-item v-cloak template="#vue-single-item" :item-data="{{ item | json_encode }}" :variation-list-data="{{ variations | json_encode }}" :attribute-name-map="{{attributeNameMap | json_encode}}">
+    <div slot="BeforePrice">{{ LayoutContainer.show("Ceres::SingleItem.BeforePrice", item.documents[0].data) }}</div>
+    <div slot="AfterPrice">{{ LayoutContainer.show("Ceres::SingleItem.AfterPrice", item.documents[0].data) }}</div>
+    <div slot="BeforeAddToBasket">{{ LayoutContainer.show("Ceres::SingleItem.BeforeAddToBasket", item.documents[0].data) }}</div>
+    <div slot="AfterAddToBasket">{{ LayoutContainer.show("Ceres::SingleItem.AfterAddToBasket", item.documents[0].data) }}</div>
+    <div slot="AdditionalContentAfterAddToBasket">{{ LayoutContainer.show("Ceres::SingleItem.AdditionalContentAfterAddToBasket", item.documents[0].data) }}</div>
+    <div slot="AdditionalContentAfterVAT">{{ LayoutContainer.show("Ceres::SingleItem.AdditionalContentAfterVAT", item.documents[0].data) }}</div>
+    <template slot="AddDetailTabs">{{ LayoutContainer.show("Ceres::SingleItem.AddDetailTabs", item.documents[0].data) }}</template>
+    <template slot="AddDetailTabsContent">{{ LayoutContainer.show("Ceres::SingleItem.AddDetailTabsContent", item.documents[0].data) }}</template>
+    <div slot="ItemListContainer">{{ LayoutContainer.show("Ceres::SingleItem.ItemListContainer", item) }}</div>
+    <div slot="FeedbackContainer">{{ LayoutContainer.show("Ceres::SingleItem.FeedbackContainer", item) }}</div>
+    <div slot="Eigenschaft">
+      {%  for variationProperty in item.documents[0].data.variationProperties %}
+      	 {% if variationProperty.property.id == 1 %}
+      	   <p>{{ variationProperty.values.value }} verkauft</p>
+      	{% endif %}
+      {% endfor %}
+      </div>
+
+      <div class="bulletpoints" slot="Bulletpoints">
+        <ul>
+        {%  for variationProperty in item.documents[0].data.variationProperties %}
+           {% if variationProperty.property.id >= 5 and variationProperty.property.id <= 8  %}
+             <li>{{ variationProperty.values.value }}</li>
+           {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+
+
+      <p class="downloads" slot="Download">
+        {%  for variationProperty in item.documents[0].data.variationProperties %}
+           {% if variationProperty.property.id == 4 %}
+             <span class="tabStop">{{ trans("Zisternenfilter::Template.singleItemDownloads") }}: </span><span class="downloadDatei hidden">{{ variationProperty.values.value }}</span>
+             <span class="tabStop2"><ul class="data"><li>&nbsp;</li></ul></span>
+          {% endif %}
+        {% endfor %}
+      </p>
+      <div slot="CrossSellingAccessory">
+         {{ LayoutContainer.show("Ceres::SingleItem.ItemListContainer", accessory) }}
+         <container-item-list :items="{{ accessory| json_encode }}"></container-item-list>
+     </div>
+</single-item>

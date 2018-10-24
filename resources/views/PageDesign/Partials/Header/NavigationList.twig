@@ -1,0 +1,7 @@
+{% import "Zisternenfilter::Category.Macros.CategoryTree" as Tree %}
+
+{% set lang = services.sessionStorage.getLang() %}
+
+<ul class="mainmenu">  
+    {{ Tree.get_nav_bar(categories, "") }}
+</ul>

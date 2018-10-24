@@ -1,0 +1,23 @@
+{% import "Ceres::PageDesign.Macros.LayoutContainer" as LayoutContainer %}
+{% if footerContent is not defined %}
+  {% set footerContent = services.category.get(1421, lang) %}
+{% endif %}
+<footer>
+  <div class="container-max footerTop">
+    <hr>
+    <div class="row">
+      {{ footerContent.details.first.description | raw }}
+    </div>
+  </div>
+  <div class="footerMiddle">
+      <div class="container-max">
+          {{ footerContent.details.first.description2 | raw }}        
+      </div>
+  </div>
+  <div class="footerBottom">
+      <div class="container-max">
+        <img src="https://cdn02.plentymarkets.com/yi9z0xbw5t14/frontend/Zisternenfilter/ceres/img/braun-gmbh-logo.png" alt="Braun GmbH Logo" />
+        <p>*Alle Preise inkl. gesetzl. Mehrwertsteuer<br>Copyright 2018 © BRAUN GmbH - Alle Rechte vorbehalten</p>
+      </div>
+    </div>
+  </footer>
