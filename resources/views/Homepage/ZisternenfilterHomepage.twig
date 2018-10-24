@@ -7,7 +7,7 @@
 {% endfor %}
 
 {% if HomeContent is not defined %}
-  {% set HomeContent = services.category.get(168, lang) %}
+  {% set HomeContent = services.category.get(1424, lang) %}
 {% endif %}
 
 {% if overrideHomepageContainer | trim is empty %}
@@ -76,7 +76,7 @@
         <a href="/" title="/">Sale / Angebote</a>
       </div>
       <div id="introText">
-          {% include category_template( 168, lang, 0 ) ignore missing %}
+          {% include category_template( 1424, lang, 0 ) ignore missing %}
       </div>
   </div>
 {% else %}
