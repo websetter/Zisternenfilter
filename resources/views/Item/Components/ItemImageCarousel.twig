@@ -5,7 +5,7 @@
         <div id="single-carousel" class="owl-carousel owl-theme owl-single-item" ref="single">
           <div v-for="image in singleImages">
             <a :href="image.url" data-lightbox="single-big-image-gallery">
-              <img :alt="getAltText(image)" class="owl-lazy" :data-src="image.url" itemprop="image">
+              <img :alt="getAltText(image)" class="owl-lazy" :data-src="imageMiddle.url" itemprop="image">
             </a>
           </div>
         </div>
